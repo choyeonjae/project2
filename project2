@@ -1,0 +1,267 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+	char name[11]; // 이름을 입력받을 배열
+	int a, i, b = 0, c = 0, d; // 함수용 인수
+	for (a = 0; a >= 0; a++)
+	{
+		b = 0;
+		printf("name : ");
+		scanf("%s", name);
+		for (i = 0; i < 11; i++) // 이름 확인하기
+		{
+			if (41 <= name[i] && name[i] <= 90) //대문자개수확인용
+			{
+				b++;
+			}
+			else if(20 <= name[i] && name[i] <= 40 || 91 <= name[i] && name[i] <= 126) // 대문자 이외의 것 카운트 
+				c++;
+		}
+		if (10 >=b && b >= 5) 
+		{
+			break;
+		}
+		else if (10 < b&&c == 0)
+		{
+			printf("Too long!\n");
+			continue;
+		}
+		else if (0 <= b&&b < 5 && c == 0)
+		{
+			printf("Too short!\n");
+			continue;
+		}
+		if (c > 0) 
+		{
+			printf("invalid format\n");
+		}
+	}
+
+	printf("%s = ", name);
+
+
+	int add_1, add_2, add_f = 0, j = 0, k, count, n = 1; //int 이름 선언
+	int add[19]; // 더한수 합 넣을 배열
+
+	//printf("name = ");
+		for (i = 0; i < 10; i++)
+		{
+			name[i] = 50 - ((int)name[i] - 40); // 특정숫자값으로 변환
+			if (0 <= name[i] && name[i] <= 25)
+			{
+				printf("%2d  ", name[i]);
+			}
+
+			if (10 <= name[i] && name[i] <= 25) // add함수에 집어넣기_2
+			{
+				add[j] = name[i] / 10;
+				j++;
+				add[j] = name[i] % 10;
+				j++;
+			} 
+
+			else if (0 <= name[i] && name[i] <= 9) 
+			{
+				add[j] = name[i];
+				j++;
+			}
+
+			/*
+			if (10 <= name[i] && name[i] <= 25) // add 함수에 집어넣기
+			{
+				if (0 < i) // name[0]의 경우 앞에 일의자리와 십의자리를 더할 필요가 없어서 넣음
+				{
+					add_2 = name[i - 1] % 10 + name[i] / 10;
+					add[j] = add_2;
+					j++;
+				}
+	
+				add_1 = name[i] / 10 + name[i] % 10;
+				add[j] = add_1;
+				j++;
+			}
+			else if (0 <= name[i] && name[i] <= 9)
+			{
+				if (0 < i)
+				{
+					add_2 = name[i - 1] % 10 + name[i];
+					if (0 <= add_2&&add_2 <= 9)
+					{
+						add[j] = add_2;
+						j++;
+					}
+					else if (add_2 >= 10)
+					{
+						add[j] = add_2 % 10;
+						j++;
+					}
+				}
+			}
+			*/
+		}
+
+		printf("\n");// add함수 확인용
+		printf("(%2d)", n);
+		n++;
+		for (j = 0; j < 19; j++) // add함수 확인용
+		{
+			if (0 <= add[j] && add[j] <= 9)
+			{
+				printf("%3d", add[j]);
+			}
+		}
+
+		count = 0;
+		d = 0;
+
+		for (i = 0; i < 19; i++) // 앞에 0이 반복될경우 건너뛰고 값 확인하기
+		{
+			if (add[i] > 0 && add[i] != 0) 
+			{
+				count = count + 1;
+				d = i;
+				i = i + 1;
+				for (i; i < (19 - i); i++)
+				{
+					if (0 <= add[i] && add[i] <= 9)
+					{
+						count = count + 1;
+						continue;
+					}
+					else continue;
+				}
+				if (count == 4 && add[d] < 5) //add[d]?
+				{
+					printf("\n");
+					printf("%d%d%d%d입니다.", add[d], add[d + 1], add[d + 2], add[d + 3]);
+					break;
+				}
+				else if (0 < count&&count < 4)
+				{
+					printf("\n");
+					printf("%d%d%d입니다.", add[d], add[d + 1], add[d + 2]);
+					break;
+				}
+
+				break;
+			}
+			else if (add[i] == 0)
+			{
+				continue;
+			}
+		}
+
+
+		for (k = 0; k < 100; k++)
+		{
+			if (count < 5 && add[d] < 5)
+			{
+				break;
+			}
+			else if (count < 4) 
+			{
+				break;
+			}
+
+			count = 0;
+
+			for (i = 0; i < 19; i++) //add더하기
+			{
+				add[i] = add[i] + add[i + 1];
+				if (20 > add[i] && add[i] >= 10)
+				{
+					add[i] = add[i] % 10;
+				}
+				int z;
+				/*
+					if (0 <= add[i] && add[i] <= 9) //쓰레기값 처리용
+					{
+						count++;
+					}
+					else
+					{
+						i = i + 19;
+					}
+				*/
+
+			}
+
+			printf("\n");//add함수 확인용
+			printf("(%2d)", n);
+			for (j = 0; j < 19; j++) //add함수 확인용
+			{
+				if (0 <= add[j] && add[j] <= 9)
+				{
+					printf("%3d", add[j]);
+				}
+				else if (add[j] > 9 || add[j] < 0)
+				{
+					j = j + 19;
+				}
+			}
+			n++;
+			//printf("\n");
+			//printf("count=%d\n", count); // 몇개가 들어있는지 확인용
+
+			/*
+			if (count == 4 && add[0] < 5)
+			{
+				printf("\n");
+				printf("%d%d%d%d입니다.", add[0], add[1], add[2], add[3]);
+				break;
+			}
+			else if (count < 4)
+			{
+				printf("\n");
+				printf("%d%d%d입니다.", add[0], add[1], add[2]);
+				break;
+			}
+			
+			*/
+			count = 0;
+			d = 0;
+			
+			int z = 0;
+			for (z = 0; z < 20; z++) // 앞에 0이 반복될경우 건너뛰고 값 확인하기
+			{
+				if (add[z] > 0 && add[z] != 0)
+				{
+					count = count + 1;
+					d = z;
+					z = z+ 1;
+					for (z; z < (19 - z); z++)
+					{
+						if (0 <= add[z] && add[z] <= 9)
+						{
+							count = count + 1;
+							continue;
+						}
+						else z = z + 19;
+					}
+					if (count == 4 && add[d] > 5) continue;
+					else if (count == 4 && add[d] < 5) //add[d]?
+					{
+						printf("\n");
+						printf("%d%d%d%d입니다.", add[d], add[d + 1], add[d + 2], add[d + 3]);
+						break;
+					}
+					
+					else if (0 < count&&count < 4)
+					{
+						printf("\n");
+						printf("%d%d%d입니다.", add[d], add[d + 1], add[d + 2]);
+						break;
+					}
+
+					//break;
+				}
+				else if (add[z] == 0)
+				{
+					continue;
+				}
+			}
+			
+				}
+			}
